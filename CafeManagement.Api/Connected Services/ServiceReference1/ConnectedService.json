@@ -1,0 +1,19 @@
+{
+  "ExtendedData": {
+    "inputs": [
+      "https://tckimlik.nvi.gov.tr/service/kpspublic.asmx?wsdl"
+    ],
+    "collectionTypes": [
+      "System.Array",
+      "System.Collections.Generic.Dictionary`2"
+    ],
+    "namespaceMappings": [
+      "*, ServiceReference1"
+    ],
+    "references": [
+      "C:\\Users\\bilal\\source\\repos\\UdemyEğitim\\CafeManagement\\CafeManagement.Api\\bin\\Debug\\net6.0\\CafeManagement.Service.dll"
+    ],
+    "targetFramework": "net6.0",
+    "typeReuseMode": "Specified"
+  }
+}

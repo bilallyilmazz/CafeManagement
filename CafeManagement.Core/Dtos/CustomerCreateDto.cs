@@ -12,7 +12,7 @@ namespace CafeManagement.Core.Dtos
         public string Surname { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        public string IdentityNumber { get; set; }
+        public string? IdentityNumber { get; set; }
         public DateTime BirthDate { get; set; }
 
         public int CompanyId { get; set; }

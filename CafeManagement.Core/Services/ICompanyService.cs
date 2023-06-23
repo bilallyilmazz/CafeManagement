@@ -10,6 +10,7 @@ namespace CafeManagement.Core.Services
     public interface ICompanyService : IService<Company>
     {
         Task<bool> SettingsUpdateMernis(int companyId, bool isMernis);
+        Task<bool> MernisControl(int companyId);
 
     }
 }

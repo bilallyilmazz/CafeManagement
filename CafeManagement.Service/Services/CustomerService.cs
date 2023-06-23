@@ -4,6 +4,7 @@ using CafeManagement.Core.Entities;
 using CafeManagement.Core.Repositories;
 using CafeManagement.Core.Services;
 using CafeManagement.Core.UnitOfWorks;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,27 +32,8 @@ namespace CafeManagement.Service.Services
         public async Task<bool> CustomerCreate(CustomerCreateDto customerCreateDto)
         {
             var companySetting = _companySettingRepository.Where(x => x.Id == customerCreateDto.CompanyId).FirstOrDefault();
-           
 
-            if (companySetting.IsUseMernis)
-            {
-                if (MernisControl(
-                    customerCreateDto.Name,
-                    customerCreateDto.Surname,
-                    customerCreateDto.IdentityNumber,
-                    customerCreateDto.BirthDate.Year))
-                {
-                   return await AddCustomer(customerCreateDto);
-
-                }
-                return false;
-            }
-            else
-            {
                return  await AddCustomer(customerCreateDto);
-                
-
-            }
 
         }
 
@@ -78,10 +60,8 @@ namespace CafeManagement.Service.Services
             return false;
         }
 
-        public bool MernisControl(string name, string surname, string identityNumber, int birthYear)
-        {
-            return true;
-        }
+
+
 
     }
 }

@@ -9,5 +9,7 @@ namespace CafeManagement.Core.Repositories
 {
     public interface ICompanySettingRepository : IGenericRepository<CompanySetting>
     {
+        Task<bool> SettingsUpdateMernis(int companyId,bool isMernis);
+
     }
 }

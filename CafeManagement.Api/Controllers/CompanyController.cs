@@ -13,13 +13,16 @@ namespace CafeManagement.Api.Controllers
     public class CompanyController : CustomBaseController
     {
         private readonly IMapper _mapper;
+        private readonly ICompanyService _companyService;
         private readonly IService<Company> _service;
 
-        public CompanyController(IMapper mapper, IService<Company> productService)
+
+        public CompanyController(IMapper mapper, IService<Company> productService, ICompanyService companyService)
         {
 
             _mapper = mapper;
             _service = productService;
+            _companyService = companyService;
         }
 
 
@@ -27,12 +30,37 @@ namespace CafeManagement.Api.Controllers
         public async Task<IActionResult> GetAll()
         {
 
-            var categories = await _service.GetAllAsync();
+            var companies = await _service.GetAllAsync();
 
-            var categoriesDto = _mapper.Map<List<CompanyDto>>(categories.ToList());
+            var companiesDto = _mapper.Map<List<CompanyDto>>(companies.ToList());
 
-            return CreateActionResult(CustomResponseDto<List<CompanyDto>>.Success(200, categoriesDto));
+            return CreateActionResult(CustomResponseDto<List<CompanyDto>>.Success(200, companiesDto));
 
         }
+
+        [HttpGet("get")]
+        public async Task<IActionResult> Get(int Id)
+        {
+
+            var company = await _service.GetByIdAsync(Id);
+
+            var companyDto = _mapper.Map<List<CompanyDto>>(company);
+
+            return CreateActionResult(CustomResponseDto<List<CompanyDto>>.Success(200, companyDto));
+
+        }
+
+
+        [HttpPost("companysettingupdate")]
+        public async Task<IActionResult> CompanySettingUpdate(int CompanyId,bool isMernis)
+        {
+            if (!await _companyService.SettingsUpdateMernis(CompanyId, isMernis))
+                return CreateActionResult(CustomResponseDto<CompanySetting>.Fail(404,"güncelleme başarısız"));
+            
+                return CreateActionResult(CustomResponseDto<CompanySetting>.Success(200));
+
+        }
+
     }
 }
+

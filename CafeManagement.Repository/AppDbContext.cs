@@ -17,6 +17,7 @@ namespace CafeManagement.Repository
 
         public DbSet<Company> Companies { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<CompanySetting> CompanySettings { get; set; }
 
         public override int SaveChanges()
         {

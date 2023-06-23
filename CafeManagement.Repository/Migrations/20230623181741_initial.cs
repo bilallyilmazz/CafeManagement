@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CafeManagement.Repository.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -25,6 +25,28 @@ namespace CafeManagement.Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CompanySettings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
+                    IsUseMernis = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CompanySettings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CompanySettings_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Customers",
                 columns: table => new
                 {
@@ -35,6 +57,7 @@ namespace CafeManagement.Repository.Migrations
                     Phone = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     IdentityNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -61,14 +84,27 @@ namespace CafeManagement.Repository.Migrations
                 values: new object[] { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Portal", null });
 
             migrationBuilder.InsertData(
-                table: "Customers",
-                columns: new[] { "Id", "CompanyId", "CreatedDate", "Email", "IdentityNumber", "Name", "Phone", "Surname", "UpdatedDate" },
-                values: new object[] { 1, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "burksenturk@gmaill.com", "55090143816", "Burak", "5555555555", "Şentürk", null });
+                table: "CompanySettings",
+                columns: new[] { "Id", "CompanyId", "CreatedDate", "IsUseMernis", "UpdatedDate" },
+                values: new object[,]
+                {
+                    { 1, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, null },
+                    { 2, 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, null }
+                });
 
             migrationBuilder.InsertData(
                 table: "Customers",
-                columns: new[] { "Id", "CompanyId", "CreatedDate", "Email", "IdentityNumber", "Name", "Phone", "Surname", "UpdatedDate" },
-                values: new object[] { 2, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "bllylmz@gmaill.com", null, "Bilal", "5555555555", "Yılmaz", null });
+                columns: new[] { "Id", "BirthDate", "CompanyId", "CreatedDate", "Email", "IdentityNumber", "Name", "Phone", "Surname", "UpdatedDate" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "burksenturk@gmaill.com", "55090143816", "Burak", "5555555555", "Şentürk", null },
+                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "bllylmz@gmaill.com", null, "Bilal", "5555555555", "Yılmaz", null }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CompanySettings_CompanyId",
+                table: "CompanySettings",
+                column: "CompanyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Customers_CompanyId",
@@ -78,6 +114,9 @@ namespace CafeManagement.Repository.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "CompanySettings");
+
             migrationBuilder.DropTable(
                 name: "Customers");
 

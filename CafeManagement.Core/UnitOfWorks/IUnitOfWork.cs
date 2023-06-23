@@ -8,7 +8,7 @@ namespace CafeManagement.Core.UnitOfWorks
 {
     public interface IUnitOfWork
     {
-        Task CommitAsync();
+        Task<int> CommitAsync();
         void Commit();
 
     }

@@ -13,15 +13,18 @@ namespace CafeManagement.Core.Entities
         public string Phone { get; set; }
         public string Email { get; set; }
         public string IdentityNumber { get; set; }
+        public DateTime BirthDate { get; set; }
         public int CompanyId { get; set; }
         public Company Company { get; set; }
 
-        public Customer Create(
+        public static Customer Create(
             string name,
             string surname,
             string phone,
             string email,
-            string identityNumber
+            string identityNumber,
+            DateTime birthDate,
+            int companyId
             )
         {
             var customer = new Customer()
@@ -30,7 +33,10 @@ namespace CafeManagement.Core.Entities
                 Surname = surname,
                 Phone = phone,
                 Email = email,
-                IdentityNumber = identityNumber
+                IdentityNumber = identityNumber,
+                BirthDate = birthDate,
+                CompanyId = companyId
+               
             };
 
             return customer;

@@ -21,9 +21,9 @@ namespace CafeManagement.Repository.UnitOfWorks
             _context.SaveChanges();
         }
 
-        public async Task CommitAsync()
+        public async Task<int> CommitAsync()
         {
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
     }
 }

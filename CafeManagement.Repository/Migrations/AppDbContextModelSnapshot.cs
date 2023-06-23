@@ -60,6 +60,49 @@ namespace CafeManagement.Repository.Migrations
                         });
                 });
 
+            modelBuilder.Entity("CafeManagement.Core.Entities.CompanySetting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsUseMernis")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("CompanySettings", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CompanyId = 1,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsUseMernis = true
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CompanyId = 2,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsUseMernis = false
+                        });
+                });
+
             modelBuilder.Entity("CafeManagement.Core.Entities.Customer", b =>
                 {
                     b.Property<int>("Id")
@@ -67,6 +110,9 @@ namespace CafeManagement.Repository.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
@@ -109,6 +155,7 @@ namespace CafeManagement.Repository.Migrations
                         new
                         {
                             Id = 1,
+                            BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CompanyId = 1,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "burksenturk@gmaill.com",
@@ -120,13 +167,25 @@ namespace CafeManagement.Repository.Migrations
                         new
                         {
                             Id = 2,
-                            CompanyId = 1,
+                            BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CompanyId = 2,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "bllylmz@gmaill.com",
                             Name = "Bilal",
                             Phone = "5555555555",
                             Surname = "Yılmaz"
                         });
+                });
+
+            modelBuilder.Entity("CafeManagement.Core.Entities.CompanySetting", b =>
+                {
+                    b.HasOne("CafeManagement.Core.Entities.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("CafeManagement.Core.Entities.Customer", b =>

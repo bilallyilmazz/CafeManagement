@@ -1,4 +1,5 @@
-﻿using CafeManagement.Core.Entities;
+﻿using CafeManagement.Core.Dtos;
+using CafeManagement.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,6 @@ namespace CafeManagement.Core.Services
 {
     public interface ICustomerService : IService<Customer>
     {
+        Task<bool> CustomerCreate(CustomerCreateDto customerCreateDto);
     }
 }

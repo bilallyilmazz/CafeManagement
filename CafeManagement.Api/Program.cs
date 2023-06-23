@@ -30,7 +30,10 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>)); //generic olduklarý için typeof kullandýk
 builder.Services.AddScoped(typeof(IService<>), typeof(Service<>));
 builder.Services.AddScoped<ICompanyService, CompanyService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+
 builder.Services.AddScoped<ICompanySettingRepository, CompanySettingRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
 
 

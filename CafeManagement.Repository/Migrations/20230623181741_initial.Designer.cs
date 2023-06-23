@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CafeManagement.Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230622201848_Add_CompanySetting")]
-    partial class Add_CompanySetting
+    [Migration("20230623181741_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -113,7 +113,7 @@ namespace CafeManagement.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("BirthdayDate")
+                    b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("CompanyId")
@@ -157,7 +157,7 @@ namespace CafeManagement.Repository.Migrations
                         new
                         {
                             Id = 1,
-                            BirthdayDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CompanyId = 1,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "burksenturk@gmaill.com",
@@ -169,8 +169,8 @@ namespace CafeManagement.Repository.Migrations
                         new
                         {
                             Id = 2,
-                            BirthdayDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CompanyId = 1,
+                            BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CompanyId = 2,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "bllylmz@gmaill.com",
                             Name = "Bilal",

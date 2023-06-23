@@ -31,7 +31,7 @@ namespace CafeManagement.Repository.Seeds
                     Surname = "Yılmaz",
                     Email = "bllylmz@gmaill.com",
                     Phone = "5555555555",
-                    CompanyId = 1
+                    CompanyId = 2
                 }
                 );
         }

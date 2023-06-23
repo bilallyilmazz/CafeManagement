@@ -15,6 +15,8 @@ namespace CafeManagement.Service.Mapping
         {
             CreateMap<Customer, CustomerCreateDto>().ReverseMap();
             CreateMap<Company, CompanyCreateDto>().ReverseMap();
+            CreateMap<Company, CompanyDto>().ReverseMap();
+            CreateMap<Customer, CustomerDto>().ReverseMap();
         }
     }
 }

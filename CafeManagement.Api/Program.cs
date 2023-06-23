@@ -1,7 +1,13 @@
 using CafeManagement.API.Filters;
 using CafeManagement.API.Middlewares;
+using CafeManagement.Core.Repositories;
+using CafeManagement.Core.Services;
+using CafeManagement.Core.UnitOfWorks;
 using CafeManagement.Repository;
+using CafeManagement.Repository.Repositories;
+using CafeManagement.Repository.UnitOfWorks;
 using CafeManagement.Service.Mapping;
+using CafeManagement.Service.Services;
 using CafeManagement.Service.Validations;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +25,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>)); //generic olduklarý için typeof kullandýk
+builder.Services.AddScoped(typeof(IService<>), typeof(Service<>));
 
 
 

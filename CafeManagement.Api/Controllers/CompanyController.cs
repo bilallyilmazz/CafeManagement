@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CafeManagement.Api.Model;
 using CafeManagement.API.Controllers;
 using CafeManagement.Core.Dtos;
 using CafeManagement.Core.DTOs;
@@ -52,12 +53,24 @@ namespace CafeManagement.Api.Controllers
 
 
         [HttpPost("companysettingupdate")]
-        public async Task<IActionResult> CompanySettingUpdate(int CompanyId,bool isMernis)
+        public async Task<IActionResult> CompanySettingUpdate(SettingUpdateRequest setting)
         {
-            if (!await _companyService.SettingsUpdateMernis(CompanyId, isMernis))
+            if (!await _companyService.SettingsUpdateMernis(setting.CompanyId, setting.IsMernis))
                 return CreateActionResult(CustomResponseDto<CompanySetting>.Fail(404,"güncelleme başarısız"));
             
                 return CreateActionResult(CustomResponseDto<CompanySetting>.Success(200));
+
+        }
+
+        [HttpGet("getusecompany")]
+        public async Task<IActionResult> GetUseCompany(int companyId)
+        {
+
+            var company = await _companyService.MernisControl(companyId);
+
+
+
+            return CreateActionResult(CustomResponseDto<bool>.Success(200, company));
 
         }
 

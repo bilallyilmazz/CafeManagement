@@ -1,0 +1,60 @@
+﻿@model CafeManagement.Web.Models.SettingsUpdateViewModel
+
+@{
+    ViewData["Title"] = "SettingsUpdate";
+}
+
+<h1>SettingsUpdate</h1>
+
+<h4>SettingsUpdateViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SettingsUpdate" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CompanyId" class="control-label">Company</label>
+                <select asp-for="CompanyId" class="form-control" asp-items="@Model.SelectListItems">
+                    <option value="">Select a Company</option>
+                </select>
+                <span asp-validation-for="CompanyId" class="text-danger"></span>
+            </div>
+
+            <div id="isMernisDiv" class="form-group">
+                <label asp-for="IsMernis" class="control-label">Is Mernis</label>
+                <input id="IsMernis" type="checkbox" asp-for="IsMernis" />
+                <span asp-validation-for="IsMernis" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script>
+        // Şirket seçildiğinde Ajax isteği göndererek isMernis durumunu getir
+        $(document).ready(function () {
+            $("#CompanyId").change(function () {
+                var companyId = $(this).val();
+                if (companyId) {
+                    $.ajax({
+                        url: '/Customer/GetIsMernisStatus',
+                        type: 'GET',
+                        data: { companyId: companyId },
+                        success: function (result) {
+                            $("#IsMernis").prop("checked", result);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}
